@@ -1,9 +1,5 @@
 import { create } from 'zustand';
-
-type User = {
-  id: string;
-  name: string;
-}
+import type { User } from '../db/schemas/user.schema';
 
 type AuthUser = {
   user: User | null;
