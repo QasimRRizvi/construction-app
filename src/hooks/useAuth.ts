@@ -7,7 +7,7 @@ type AuthUser = {
   logout: () => void;
 }
 
-export const userAuth = create<AuthUser>((set) => ({
+export const useAuth = create<AuthUser>((set) => ({
   user: null,
   login: (user) => set({ user }),
   logout: () => set({ user: null })

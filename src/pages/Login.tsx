@@ -2,11 +2,11 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 import { getDB } from '../db'
-import { userAuth } from '../hooks/useAuth'
+import { useAuth } from '../hooks/useAuth'
 
 const Login = () => {
   const [name, setName] = useState('')
-  const login = userAuth(({ login }) => login)
+  const login = useAuth(({ login }) => login)
   const navigate = useNavigate()
 
   const handleLogin = async () => {
