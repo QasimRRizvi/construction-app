@@ -10,8 +10,9 @@ const Login = () => {
   const navigate = useNavigate()
 
   const handleLogin = async () => {
-    const db = await getDB()
+    if (!name.trim()) return
 
+    const db = await getDB()
     const existing = await db.users.findOne({ selector: { name } }).exec()
 
     let user
@@ -28,21 +29,35 @@ const Login = () => {
   }
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center gap-4">
-      <h1 className="text-3xl font-bold">Login</h1>
-      <input
-        type="text"
-        className="border p-2 rounded w-64"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Enter your name"
-      />
-      <button
-        onClick={handleLogin}
-        className="bg-blue-500 text-white px-4 py-2 rounded"
-      >
-        Go →
-      </button>
+    <div className="min-h-screen bg-gradient-to-br from-slate-800 to-slate-950 flex items-center justify-center px-4">
+      <div className="w-full max-w-md bg-white/10 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-white/20">
+        <h1 className="text-3xl font-bold text-white text-center mb-6">
+          Construction Planner 🏗️
+        </h1>
+
+        <label htmlFor="username" className="text-slate-300 text-sm">
+          Enter Name
+        </label>
+        <input
+          id="username"
+          type="text"
+          className="w-full mt-1 mb-4 p-3 rounded-lg bg-white/20 text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          placeholder="e.g. Site Supervisor"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+
+        <button
+          onClick={handleLogin}
+          className="w-full bg-blue-500 hover:bg-blue-600 transition-colors text-white font-medium py-2 rounded-lg shadow-md"
+        >
+          Continue →
+        </button>
+
+        <p className="text-xs text-slate-400 mt-4 text-center">
+          Offline-first task planner for your construction site.
+        </p>
+      </div>
     </div>
   )
 }
