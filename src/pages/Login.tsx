@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 import { getDB } from '../db'
@@ -6,8 +6,12 @@ import { useAuth } from '../hooks/useAuth'
 
 const Login = () => {
   const [name, setName] = useState('')
-  const login = useAuth(({ login }) => login)
+  const { login, user: currentUser } = useAuth((auth) => auth)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (currentUser) navigate('/plan')
+  }, [currentUser])
 
   const handleLogin = async () => {
     if (!name.trim()) return
