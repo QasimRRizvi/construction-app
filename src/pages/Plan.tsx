@@ -4,12 +4,14 @@ import { v4 as uuidv4 } from 'uuid'
 import { useAuth } from '../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import type { Task } from '../db/schemas/task.schema'
+import TaskModal from '../components/TaskModal'
 
 const Plan = () => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const user = useAuth(({ user }) => user)
   const navigate = useNavigate()
   const [tasks, setTasks] = useState<Task[]>([])
+  const [activeTask, setActiveTask] = useState<Task | null>(null)
 
   useEffect(() => {
     const loadTasks = async () => {
@@ -68,6 +70,10 @@ const Plan = () => {
               top: `${task.y}px`,
               transform: 'translate(-50%, -100%)',
             }}
+            onClick={(e) => {
+              e.stopPropagation() // prevent new marker placement
+              setActiveTask(task)
+            }}
           >
             {/* Pin Container */}
             <div className="relative flex flex-col items-center cursor-pointer group">
@@ -82,6 +88,12 @@ const Plan = () => {
           </div>
         ))}
       </div>
+      {activeTask && (
+        <TaskModal
+          task={activeTask}
+          onClose={() => setActiveTask(null)}
+        />
+      )}
     </div>
   )
 }
