@@ -2,6 +2,7 @@ import { ChecklistStatus } from "../constants";
 
 export function getTaskStatus(statuses: ChecklistStatus[]): ChecklistStatus {
 
+  let hasInProgress = false;
   let allNotStarted = true;
   let allDone = true;
   let allFinalCheckAwaiting = true;
@@ -13,7 +14,8 @@ export function getTaskStatus(statuses: ChecklistStatus[]): ChecklistStatus {
     }
 
     if (status === ChecklistStatus.InProgress) {
-      return ChecklistStatus.InProgress;
+      // return ChecklistStatus.InProgress;
+      hasInProgress = true;
     }
 
     // Evaluate uniformity for fallback
@@ -30,6 +32,7 @@ export function getTaskStatus(statuses: ChecklistStatus[]): ChecklistStatus {
     }
   }
 
+  if (hasInProgress) return ChecklistStatus.InProgress;
   if (allNotStarted) return ChecklistStatus.NotStarted;
   if (allDone) return ChecklistStatus.Done;
   if (allFinalCheckAwaiting) return ChecklistStatus.FinalCheckAwaiting;
