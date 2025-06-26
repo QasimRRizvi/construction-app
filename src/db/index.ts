@@ -1,14 +1,18 @@
 import {
+  addRxPlugin,
   createRxDatabase,
   type RxDatabase,
   type RxCollection
 } from 'rxdb'
 
 import { getRxStorageDexie } from 'rxdb/plugins/storage-dexie'
+import { RxDBUpdatePlugin } from 'rxdb/plugins/update';
 
 import userSchema, { type User } from './schemas/user.schema'
 import taskSchema, { type Task } from './schemas/task.schema'
 import checklistSchema, { type Checklist } from './schemas/checklist.schema'
+
+addRxPlugin(RxDBUpdatePlugin)
 
 export interface AppDatabaseCollections {
   users: RxCollection<User>
