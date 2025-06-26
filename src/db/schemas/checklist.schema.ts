@@ -1,8 +1,10 @@
+import { ChecklistStatus } from "../../constants";
+
 export type Checklist = {
   id: string
   taskId: string
   label: string
-  status: 'Not Started' | 'In Progress' | 'Blocked' | 'Final Check Awaiting' | 'Done'
+  status: ChecklistStatus
 };
 
 const checklistSchema = {
@@ -17,7 +19,7 @@ const checklistSchema = {
     label: { type: 'string' },
     status: {
       type: 'string',
-      enum: ['Not Started', 'In Progress', 'Blocked', 'Final Check Awaiting', 'Done'],
+      enum: Object.values(ChecklistStatus),
     },
   },
   required: ['id', 'taskId', 'label', 'status'],
