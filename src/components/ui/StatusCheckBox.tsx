@@ -29,8 +29,8 @@ const statusConfig: Record<ChecklistStatus, { icon: React.ReactNode; color: stri
     color: 'border-red-500',
   },
   [ChecklistStatus.FinalCheckAwaiting]: {
-    icon: <Clock className="w-4 h-4 text-green-400" />,
-    color: 'border-green-400',
+    icon: <Clock className="w-4 h-4 text-orange-500" />,
+    color: 'border-orange-500',
   },
   [ChecklistStatus.Done]: {
     icon: <Check className="w-4 h-4 text-green-600" />,
