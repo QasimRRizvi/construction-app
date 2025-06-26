@@ -182,7 +182,10 @@ const TaskModal = ({ task, onClose }: Props) => {
   )
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+      onClick={() => {
+        activeDropdown && setActiveDropdown(null)
+      }}>
       <div
         className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto"
         role="dialog"
@@ -222,7 +225,6 @@ const TaskModal = ({ task, onClose }: Props) => {
                   onClick={startEditingTaskName}
                   color="secondary"
                   className="!p-1 opacity-0 group-hover:opacity-100"
-                  // className="p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded opacity-0 group-hover:opacity-100 transition-opacity focus:outline-none focus:ring-2 focus:ring-blue-500 focus:opacity-100"
                   aria-label="Edit task name"
                 >
                   <Edit2 className="w-4 h-4" />
@@ -234,7 +236,7 @@ const TaskModal = ({ task, onClose }: Props) => {
             <div className="flex items-center gap-2">
               <Circle className={`w-3 h-3 fill-current ${statusConfig[taskStatus].dotColor}`} />
               <span className={`text-sm font-medium ${statusConfig[taskStatus].color}`}>
-                {statusConfig[taskStatus].label}
+                {`Ticket is ${statusConfig[taskStatus].label}`}
               </span>
             </div>
           </div>
@@ -310,8 +312,13 @@ const TaskModal = ({ task, onClose }: Props) => {
                             <div className="flex items-center gap-2">
                               <label
                                 htmlFor={`item-${item.id}`}
-                                className={`block text-sm cursor-pointer flex-1 ${item.status === ChecklistStatus.Done ? "line-through text-gray-500" : "text-gray-900"
-                                  }`}
+                                className={clsx(
+                                  "block text-md cursor-pointer flex-1 text-gray-900 ",
+                                  {
+                                    "line-through text-gray-500": item.status === ChecklistStatus.Done,
+                                    [statusConfig[item.status].color]: statusConfig[item.status].label === ChecklistStatus.Blocked
+                                  }
+                                )}
                               >
                                 {item.label}
                               </label>
@@ -338,7 +345,9 @@ const TaskModal = ({ task, onClose }: Props) => {
                             {/* Status indicator below item label */}
                             <div id={`item-${item.id}-status`} className="flex items-center gap-1">
                               <Circle className={`w-2 h-2 fill-current ${statusConfig[item.status].dotColor}`} />
-                              <span className={`text-xs ${statusConfig[item.status].color}`}>
+                              <span className={clsx("text-xs text-black",
+                                { [statusConfig[item.status].color]: statusConfig[item.status].label === ChecklistStatus.Blocked })}
+                              >
                                 {statusConfig[item.status].label}
                               </span>
                             </div>
@@ -357,7 +366,7 @@ const TaskModal = ({ task, onClose }: Props) => {
                     aria-label="Add new checklist item"
                   >
                     <Plus className="w-4 h-4" />
-                    <span>Add Item</span>
+                    <span>Add New Item</span>
                   </Button>
                 </div>
               </div>
@@ -371,16 +380,6 @@ const TaskModal = ({ task, onClose }: Props) => {
           </div>
         </div>
       </div>
-
-      {/* Click outside to close overlay */}
-      <div
-        className="absolute inset-0 -z-10"
-        onClick={() => {
-          setActiveDropdown(null)
-          // You could add modal close logic here
-        }}
-        aria-hidden="true"
-      />
     </div>
   )
 }
