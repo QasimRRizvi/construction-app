@@ -7,6 +7,7 @@ import TaskModal from '../components/TaskModal'
 import { getDB } from '../db';
 import { useAuth } from '../hooks/useAuth';
 import { useTask } from '../hooks/useTask';
+import { DEFAULT_CHECKLIST } from '../constants';
 
 const Plan = () => {
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -48,6 +49,17 @@ const Plan = () => {
 
     const db = await getDB()
     await db.tasks.insert(newTask)
+
+    // Add default checklist
+    const checklistInserts = DEFAULT_CHECKLIST.map(item => ({
+      id: uuidv4(),
+      taskId: newTask.id,
+      label: item.label,
+      status: item.status
+    }));
+
+    await db.checklists.bulkInsert(checklistInserts);
+
     setTasks([...tasks, newTask]);
   }
 
