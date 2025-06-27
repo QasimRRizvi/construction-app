@@ -1,17 +1,18 @@
-import { useEffect, useRef, useState } from 'react'
-import { getDB } from '../db'
-import { v4 as uuidv4 } from 'uuid'
-import { useAuth } from '../hooks/useAuth'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+
 import type { Task } from '../db/schemas/task.schema'
 import TaskModal from '../components/TaskModal'
+import { getDB } from '../db';
+import { useAuth } from '../hooks/useAuth';
+import { useTask } from '../hooks/useTask';
 
 const Plan = () => {
   const containerRef = useRef<HTMLDivElement | null>(null)
-  const user = useAuth(({ user }) => user)
+  const { user } = useAuth();
+  const { activeTask, tasks, setActiveTask, setTasks } = useTask();
   const navigate = useNavigate()
-  const [tasks, setTasks] = useState<Task[]>([])
-  const [activeTask, setActiveTask] = useState<Task | null>(null)
 
   useEffect(() => {
     const loadTasks = async () => {
@@ -47,7 +48,7 @@ const Plan = () => {
 
     const db = await getDB()
     await db.tasks.insert(newTask)
-    setTasks((prev) => [...prev, newTask])
+    setTasks([...tasks, newTask]);
   }
 
   return (
