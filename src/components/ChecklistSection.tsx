@@ -83,7 +83,7 @@ const ChecklistSection = ({ task }: Props) => {
   /* Checklist Item handlres */
 
   const StatusDropdown = ({ itemId, currentStatus }: { itemId: string; currentStatus: ChecklistStatus }) => (
-    <div className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-md shadow-lg z-10 min-w-[20`0px]">
+    <div className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-md shadow-lg z-10 min-w-48">
       {Object.entries(statusConfig).map(([status, config]) => (
         <Button
           key={status}
