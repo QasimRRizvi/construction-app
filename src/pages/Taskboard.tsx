@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Edit3, Trash2, List, LayoutGrid, Calendar, Circle } from "lucide-react"
+import { Eye, List, LayoutGrid, Calendar, Circle } from "lucide-react"
 import Badge from "../components/ui/Badge"
 import Button from "../components/ui/Button"
 import { ChecklistStatus } from "../constants"
@@ -55,10 +55,6 @@ export default function TaskManagement() {
     user?.id ? fetchTasksAndChecklists() : navigate("/");
   }, [user]);
 
-  const handleDeleteTask = (taskId: string) => {
-    setTasks(tasks.filter((task) => task.id !== taskId))
-  }
-
   const groupedTasks = statusOrder.reduce((acc, status) => {
     acc[status] = tasks.filter((task) => {
       const statuses = getStatusesByTask(task.id)
@@ -100,15 +96,7 @@ export default function TaskManagement() {
               className="!p-1"
               aria-label={`Edit ${task.title}`}
             >
-              <Edit3 className="w-4 h-4" />
-            </Button>
-            <Button
-              onClick={() => handleDeleteTask(task.id)}
-              color="error"
-              className="!p-1"
-              aria-label={`Delete ${task.title}`}
-            >
-              <Trash2 className="w-4 h-4" />
+              <Eye className="w-5 h-5" />
             </Button>
           </div>
         </div>
