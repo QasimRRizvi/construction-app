@@ -49,6 +49,9 @@ const Login = () => {
           placeholder="e.g. Site Supervisor"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleLogin()
+          }}
         />
 
         <button
