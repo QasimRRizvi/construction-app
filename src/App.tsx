@@ -2,7 +2,7 @@ import AppRoutes from './router/routes'
 
 const App = () => {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="h-screen w-screen overflow-auto bg-gray-100">
       <AppRoutes />
     </div>
   )
