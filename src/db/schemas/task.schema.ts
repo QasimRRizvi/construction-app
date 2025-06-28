@@ -1,10 +1,10 @@
 export type Task = {
-  id: string
-  userId: string
-  title: string
-  x: number
-  y: number
-  createdAt: string
+  id: string;
+  userId: string;
+  title: string;
+  x: number;
+  y: number;
+  createdAt: string;
 };
 
 const taskSchema = {

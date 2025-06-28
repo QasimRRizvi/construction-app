@@ -1,7 +1,7 @@
-import { create } from "zustand";
-import { ChecklistStatus } from "../constants";
-import { v4 as uuidv4 } from "uuid";
-import type { Checklist } from "../db/schemas/checklist.schema";
+import { create } from 'zustand';
+import { ChecklistStatus } from '../constants';
+import { v4 as uuidv4 } from 'uuid';
+import type { Checklist } from '../db/schemas/checklist.schema';
 
 type ChecklistItem = Checklist & { isUpdated: boolean };
 
@@ -38,59 +38,56 @@ export const useChecklist = create<ChecklistState>((set, get) => ({
   activeDropdown: null,
   checklistsByTask: {},
 
-  toggleOpen: () => set((state) => ({ open: !state.open })),
-  setItems: (items) => set({ items }),
-  setDeletedItemId: (id) => set((state) => ({ deletedItemIds: [...state.deletedItemIds, id] })),
+  toggleOpen: () => set(state => ({ open: !state.open })),
+  setItems: items => set({ items }),
+  setDeletedItemId: id => set(state => ({ deletedItemIds: [...state.deletedItemIds, id] })),
   resetDeletedItemId: () => set({ deletedItemIds: [] }),
-  setEditingItemId: (id) => set({ editingItemId: id }),
-  addItem: (taskId) => {
+  setEditingItemId: id => set({ editingItemId: id }),
+  addItem: taskId => {
     const newItem: ChecklistItem = {
       id: uuidv4(),
       taskId,
-      label: "New Task",
+      label: 'New Task',
       status: ChecklistStatus.NotStarted,
       isUpdated: true,
     };
-    set((state) => ({
+    set(state => ({
       items: [...state.items, newItem],
-      editingItemId: newItem.id // Automatically enter edit mode for the new item
+      editingItemId: newItem.id, // Automatically enter edit mode for the new item
     }));
     return newItem;
   },
 
   updateItemStatus: (id, status) => {
-    set((state) => ({
-      items: state.items.map((item) =>
-        item.id === id ? { ...item, status, isUpdated: true } : item
+    set(state => ({
+      items: state.items.map(item =>
+        item.id === id ? { ...item, status, isUpdated: true } : item,
       ),
     }));
   },
 
   updateItemLabel: (id, label) => {
-    set((state) => ({
-      items: state.items.map((item) =>
-        item.id === id ? { ...item, label, isUpdated: true } : item
-      ),
+    set(state => ({
+      items: state.items.map(item => (item.id === id ? { ...item, label, isUpdated: true } : item)),
       editingItemId: null, // change edit state to view state
     }));
   },
 
-  deleteItem: (id) => {
-    set((state) => ({
-      items: state.items.filter((item) => item.id !== id),
+  deleteItem: id => {
+    set(state => ({
+      items: state.items.filter(item => item.id !== id),
       deletedItemIds: [...state.deletedItemIds, id],
     }));
   },
 
-  getStatuses: () => get().items.map((item) => item.status),
+  getStatuses: () => get().items.map(item => item.status),
   getUpdatedItems: () => get().items.filter(item => item.isUpdated),
-  setActiveDropdown: (id) => set({ activeDropdown: id }),
+  setActiveDropdown: id => set({ activeDropdown: id }),
   setChecklistForTask: (taskId, items) =>
-    set((state) => ({
-      checklistsByTask: { ...state.checklistsByTask, [taskId]: items }
+    set(state => ({
+      checklistsByTask: { ...state.checklistsByTask, [taskId]: items },
     })),
 
-  getStatusesByTask: (taskId) =>
-    get().checklistsByTask[taskId]?.map((item) => item.status) || [],
+  getStatusesByTask: taskId => get().checklistsByTask[taskId]?.map(item => item.status) || [],
   getIds: () => get().items.map(item => item.id),
 }));

@@ -43,23 +43,24 @@ src/
 ├── utils/               # Helper functions like getTaskStatus
 └── App.tsx              # App root component
 ```
+
 ---
 
 ## 🕒 Time Spent on Each Feature
 
-| Task | Estimated Time |
-|------|----------------|
-| 🔧 Project setup & routing | 2 hours |
-| 🔐 Auth (Zustand + RxDB) | 2 hours |
-| 🧬 RxDB collections | 3 hours |
-| 🗺️ Floor Plan & task placement | 3.5 hours |
-| 🧾 Task modal + checklist logic | 3 hours |
-| ✅ Checklist UI & status sync | 4.5 hours |
-| 🗂️ Task Board (list + board view) | 6 hours |
-| 💾 Persistence (offline-first) | 2 hours |
-| 🧼 UI polish & mobile support | 4 hours |
-| 🧭 Sidebar + layout | 2 hours |
-| 🔧 Final integration & bugs | 2 hours |
+| Task                              | Estimated Time |
+| --------------------------------- | -------------- |
+| 🔧 Project setup & routing        | 2 hours        |
+| 🔐 Auth (Zustand + RxDB)          | 2 hours        |
+| 🧬 RxDB collections               | 3 hours        |
+| 🗺️ Floor Plan & task placement    | 3.5 hours      |
+| 🧾 Task modal + checklist logic   | 3 hours        |
+| ✅ Checklist UI & status sync     | 4.5 hours      |
+| 🗂️ Task Board (list + board view) | 6 hours        |
+| 💾 Persistence (offline-first)    | 2 hours        |
+| 🧼 UI polish & mobile support     | 4 hours        |
+| 🧭 Sidebar + layout               | 2 hours        |
+| 🔧 Final integration & bugs       | 2 hours        |
 
 **Total**: ~33–35 hours
 
@@ -81,3 +82,4 @@ git clone https://github.com/QasimRRizvi/construction-app.git
 cd construction-app
 npm install
 npm run dev
+```

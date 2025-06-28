@@ -1,7 +1,6 @@
-import { ChecklistStatus } from "../constants";
+import { ChecklistStatus } from '../constants';
 
 export function getTaskStatus(statuses: ChecklistStatus[]): ChecklistStatus {
-
   let hasInProgress = false;
   let allNotStarted = true;
   let allDone = true;

@@ -1,10 +1,10 @@
-import { Menu, X, User2, LogOut } from "lucide-react";
-import { useCallback, useMemo, useState, type ReactNode } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Menu, X, User2, LogOut } from 'lucide-react';
+import { useCallback, useMemo, useState, type ReactNode } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import Button from "../ui/Button";
-import { useAuth } from "../../hooks/useAuth";
-import { SidebarLinks } from "../../constants/sidebar";
+import Button from '../ui/Button';
+import { useAuth } from '../../hooks/useAuth';
+import { SidebarLinks } from '../../constants/sidebar';
 
 interface Props {
   children: ReactNode;
@@ -18,17 +18,14 @@ const AuthenticatedLayout = ({ children }: Props) => {
 
   const handleLogout = () => {
     logout();
-    navigate("/");
+    navigate('/');
   };
 
-  const isActive = useCallback(
-    (path: string) => location.pathname === path,
-    [location.pathname]
-  );
+  const isActive = useCallback((path: string) => location.pathname === path, [location.pathname]);
 
   const currentRouteDetails = useMemo(
-    () => SidebarLinks.find((route) => location.pathname === route.path),
-    [location.pathname]
+    () => SidebarLinks.find(route => location.pathname === route.path),
+    [location.pathname],
   );
 
   return (
@@ -38,7 +35,7 @@ const AuthenticatedLayout = ({ children }: Props) => {
         className={`
           fixed z-40 inset-y-0 left-0 transform lg:relative lg:translate-x-0 transition-transform duration-300
           w-64 bg-gradient-to-br from-slate-800 to-slate-950 text-white flex flex-col
-          ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}
       >
         <div className="flex justify-between items-center px-4 py-3 border-b border-white/20">
@@ -54,10 +51,11 @@ const AuthenticatedLayout = ({ children }: Props) => {
                 navigate(path);
                 setSidebarOpen(false);
               }}
-              className={`text-left px-3 py-2 font-bold rounded-md transition backdrop-blur-sm shadow-xl ${isActive(path)
-                ? "bg-slate-500/50 text-white font-semibold"
-                : "text-gray-300 bg-white/10 border border-white/20"
-                }`}
+              className={`text-left px-3 py-2 font-bold rounded-md transition backdrop-blur-sm shadow-xl ${
+                isActive(path)
+                  ? 'bg-slate-500/50 text-white font-semibold'
+                  : 'text-gray-300 bg-white/10 border border-white/20'
+              }`}
             >
               <span className="mr-2">{icon}</span>
               {label}
@@ -83,7 +81,10 @@ const AuthenticatedLayout = ({ children }: Props) => {
         {/* Header */}
         <header className="bg-white shadow p-4 flex justify-between items-center border-b border-gray-200">
           <div className="flex items-center gap-3">
-            <Menu className="w-6 h-6 lg:hidden text-gray-700" onClick={() => setSidebarOpen(true)} />
+            <Menu
+              className="w-6 h-6 lg:hidden text-gray-700"
+              onClick={() => setSidebarOpen(true)}
+            />
             <h1 className="text-xl lg:text-2xl font-bold text-gray-700">
               {currentRouteDetails?.heading}
             </h1>

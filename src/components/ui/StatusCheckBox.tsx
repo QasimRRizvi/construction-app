@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  Hourglass,
-  Ban,
-  Clock,
-  Check,
-} from 'lucide-react';
+import { Hourglass, Ban, Clock, Check } from 'lucide-react';
 import clsx from 'clsx';
 import { ChecklistStatus } from '../../constants';
 
@@ -56,7 +51,7 @@ const StatusCheckBox: React.FC<StatusCheckBoxProps> = ({
           'cursor-pointer hover:bg-gray-50': !disabled,
           'opacity-50 cursor-not-allowed pointer-events-none': disabled,
         },
-        className
+        className,
       )}
       onClick={!disabled ? onClick : undefined}
       {...rest}

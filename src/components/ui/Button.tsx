@@ -75,13 +75,7 @@ const Button: React.FC<ButtonProps> = ({
   const classes = clsx(baseStyles, sizeStyles[size], colorClasses, className);
 
   return (
-    <button
-      type="button"
-      className={classes}
-      onClick={onClick}
-      disabled={disabled}
-      {...rest}
-    >
+    <button type="button" className={classes} onClick={onClick} disabled={disabled} {...rest}>
       {children}
     </button>
   );
