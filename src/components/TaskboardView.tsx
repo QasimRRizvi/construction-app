@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Eye, List, LayoutGrid, Calendar, Circle } from "lucide-react"
 import Badge from "../components/ui/Badge"
 import Button from "../components/ui/Button"
@@ -26,7 +26,7 @@ const TaskboardView = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { tasks, setTasks, activeTask, setActiveTask } = useTask();
-  const { getStatusesByTask, setChecklistForTask } = useChecklist();
+  const { checklistsByTask, getStatusesByTask, setChecklistForTask } = useChecklist();
 
   const [viewMode, setViewMode] = useState<"list" | "board">("list")
 
@@ -55,13 +55,15 @@ const TaskboardView = () => {
     user?.id ? fetchTasksAndChecklists() : navigate("/");
   }, [user]);
 
-  const groupedTasks = statusOrder.reduce((acc, status) => {
-    acc[status] = tasks.filter((task) => {
-      const statuses = getStatusesByTask(task.id)
-      return getTaskStatus(statuses) === status
-    })
-    return acc
-  }, {} as Record<ChecklistStatus, Task[]>)
+  const groupedTasks = useMemo(() =>
+    statusOrder.reduce((acc, status) => {
+      acc[status] = tasks.filter((task) => {
+        const statuses = getStatusesByTask(task.id)
+        return getTaskStatus(statuses) === status
+      })
+      return acc
+    }, {} as Record<ChecklistStatus, Task[]>),
+    [[...tasks], checklistsByTask]);
 
   const StatusBadge = ({ status }: { status: ChecklistStatus }) => {
     const config = statusConfig[status]
