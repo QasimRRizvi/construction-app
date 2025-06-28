@@ -6,6 +6,8 @@ import TaskModalHeader from "./TaskModalHeader"
 import { getDB } from "../db"
 import { useTask } from "../hooks/useTask"
 import { useChecklist } from "../hooks/useChecklist"
+import { useDelete } from "../hooks/useDelete"
+import DeleteModal from "./DeleteModal"
 
 interface Props {
   task: Task
@@ -13,13 +15,16 @@ interface Props {
 }
 
 const TaskModal = ({ task, onClose }: Props) => {
-  const { isEditingTaskName, tasks, setTasks } = useTask()
+  const { open: openDeleteModal, toggleOpen: toggleDeleteModal } = useDelete();
+  const { isEditingTaskName, tasks, setTasks } = useTask();
   const {
     activeDropdown,
+    items,
     deletedItemIds,
     editingItemId,
     getUpdatedItems,
-    setActiveDropdown
+    setActiveDropdown,
+    setChecklistForTask,
   } = useChecklist()
 
   /* Save in DB Handlres */
@@ -48,6 +53,8 @@ const TaskModal = ({ task, onClose }: Props) => {
     );
 
     db.checklists.find({ selector: { id: { $in: deletedItemIds } } }).remove();
+    // to real-time update grouped items in task board
+    setChecklistForTask(task.id, items);
   };
 
   const handleSave = () => {
@@ -63,7 +70,7 @@ const TaskModal = ({ task, onClose }: Props) => {
         activeDropdown && setActiveDropdown(null)
       }}>
       <div
-        className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto"
+        className="bg-white rounded-3xl shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto"
         role="dialog"
         aria-labelledby="task-modal-title"
         aria-modal="true"
@@ -77,11 +84,40 @@ const TaskModal = ({ task, onClose }: Props) => {
 
           {/* Modal Actions */}
           <div className="flex justify-end gap-3 mt-6 pt-4 border-t">
-            <Button variant="outlined" size="sm" onClick={onClose}>Cancel</Button>
-            <Button variant="contained" size="sm" onClick={handleSave} disabled={!!editingItemId || isEditingTaskName}>Save Changes</Button>
+            <Button
+              variant="outlined"
+              className="rounded-xl"
+              size="sm"
+              onClick={onClose}
+              color="secondary"
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="contained"
+              className="rounded-xl"
+              size="sm"
+              onClick={handleSave}
+              disabled={!!editingItemId || isEditingTaskName}
+            >
+              Save Changes
+            </Button>
+            <Button
+              variant="contained"
+              className="rounded-xl"
+              size="sm"
+              onClick={toggleDeleteModal}
+              disabled={!!editingItemId || isEditingTaskName}
+              color="error"
+            >
+              Delete Task
+            </Button>
           </div>
         </div>
       </div>
+      {openDeleteModal && (
+        <DeleteModal />
+      )}
     </div>
   )
 }

@@ -26,6 +26,7 @@ interface ChecklistState {
   setActiveDropdown: (id: string | null) => void;
   setChecklistForTask: (taskId: string, items: Checklist[]) => void;
   getStatusesByTask: (taskId: string) => ChecklistStatus[];
+  getIds: () => string[];
 }
 
 export const useChecklist = create<ChecklistState>((set, get) => ({
@@ -89,4 +90,5 @@ export const useChecklist = create<ChecklistState>((set, get) => ({
 
   getStatusesByTask: (taskId) =>
     get().checklistsByTask[taskId]?.map((item) => item.status) || [],
+  getIds: () => get().items.map(item => item.id),
 }));
