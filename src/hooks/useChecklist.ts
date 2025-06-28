@@ -11,6 +11,7 @@ interface ChecklistState {
   deletedItemIds: string[];
   editingItemId: string | null;
   activeDropdown: string | null;
+  checklistsByTask: Record<string, Checklist[]>;
 
   toggleOpen: () => void;
   setItems: (items: ChecklistItem[]) => void;
@@ -23,6 +24,8 @@ interface ChecklistState {
   getStatuses: () => ChecklistStatus[];
   getUpdatedItems: () => ChecklistItem[];
   setActiveDropdown: (id: string | null) => void;
+  setChecklistForTask: (taskId: string, items: Checklist[]) => void;
+  getStatusesByTask: (taskId: string) => ChecklistStatus[];
 }
 
 export const useChecklist = create<ChecklistState>((set, get) => ({
@@ -31,6 +34,7 @@ export const useChecklist = create<ChecklistState>((set, get) => ({
   deletedItemIds: [],
   editingItemId: null,
   activeDropdown: null,
+  checklistsByTask: {},
 
   toggleOpen: () => set((state) => ({ open: !state.open })),
   setItems: (items) => set({ items }),
@@ -77,5 +81,12 @@ export const useChecklist = create<ChecklistState>((set, get) => ({
 
   getStatuses: () => get().items.map((item) => item.status),
   getUpdatedItems: () => get().items.filter(item => item.isUpdated),
-  setActiveDropdown: (id) => set({ activeDropdown: id })
+  setActiveDropdown: (id) => set({ activeDropdown: id }),
+  setChecklistForTask: (taskId, items) =>
+    set((state) => ({
+      checklistsByTask: { ...state.checklistsByTask, [taskId]: items }
+    })),
+
+  getStatusesByTask: (taskId) =>
+    get().checklistsByTask[taskId]?.map((item) => item.status) || [],
 }));
