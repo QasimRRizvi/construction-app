@@ -27,7 +27,7 @@ const AuthenticatedLayout = ({ children }: Props) => {
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
       <aside className="w-64 bg-gradient-to-br from-slate-800 to-slate-950 bg-slate-900 text-white flex flex-col">
-        <h2 className="text-2xl font-bold border-b border-gray-100 mb-2 p-4">🏗️ Construction</h2>
+        <h2 className="text-2xl font-bold border-b border-white/30 mb-2 p-4">🏗️ Construction</h2>
         <nav className="flex flex-col space-y-1 text-sm p-4">
           {SidebarLinks.map(({ label, path, icon }) => (
             <button
