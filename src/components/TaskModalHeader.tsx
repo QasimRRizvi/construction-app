@@ -1,13 +1,13 @@
-import { useMemo, useState } from "react";
-import { Circle, Edit3 } from "lucide-react";
+import { useMemo, useState } from 'react';
+import { Circle, Edit3 } from 'lucide-react';
 
-import type { Task } from "../db/schemas/task.schema";
-import Button from "./ui/Button";
-import FieldActionButtons from "./FieldActionButtons";
-import { statusConfig } from "../constants/taskModal";
-import { useTask } from "../hooks/useTask";
-import { useChecklist } from "../hooks/useChecklist";
-import { getTaskStatus } from "../utils";
+import type { Task } from '../db/schemas/task.schema';
+import Button from './ui/Button';
+import FieldActionButtons from './FieldActionButtons';
+import { statusConfig } from '../constants/taskModal';
+import { useTask } from '../hooks/useTask';
+import { useChecklist } from '../hooks/useChecklist';
+import { getTaskStatus } from '../utils';
 
 interface Props {
   task: Task;
@@ -15,26 +15,26 @@ interface Props {
 
 const TaskModalHeader = ({ task }: Props) => {
   const { isEditingTaskName, setActiveTask, toggleIsEditingTaskName } = useTask();
-  const {items: checklistItems, getStatuses} = useChecklist();
-  const [editingTaskName, setEditingTaskName,] = useState(task.title)
+  const { items: checklistItems, getStatuses } = useChecklist();
+  const [editingTaskName, setEditingTaskName] = useState(task.title);
 
   /* Task Name Handlers */
   const startEditingTaskName = () => {
-    toggleIsEditingTaskName()
-    setEditingTaskName(task.title)
-  }
+    toggleIsEditingTaskName();
+    setEditingTaskName(task.title);
+  };
 
   const saveTaskName = () => {
-    toggleIsEditingTaskName()
-    setActiveTask({ ...task, title: editingTaskName })
-  }
+    toggleIsEditingTaskName();
+    setActiveTask({ ...task, title: editingTaskName });
+  };
 
   const cancelTaskNameEdit = () => {
-    toggleIsEditingTaskName()
-  }
+    toggleIsEditingTaskName();
+  };
   /* Task Name Handlers */
 
-  const taskStatus = useMemo(() => getTaskStatus(getStatuses()), [checklistItems]);
+  const taskStatus = useMemo(() => getTaskStatus(getStatuses()), [checklistItems, getStatuses]);
 
   return (
     <div className="mb-6">
@@ -43,11 +43,11 @@ const TaskModalHeader = ({ task }: Props) => {
           <input
             type="text"
             value={editingTaskName}
-            onChange={(e) => setEditingTaskName(e.target.value)}
+            onChange={e => setEditingTaskName(e.target.value)}
             className="text-xl font-semibold text-gray-900 bg-transparent border-b-2 border-blue-500 focus:outline-none focus:border-blue-600 w-full"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") saveTaskName()
-              if (e.key === "Escape") cancelTaskNameEdit()
+            onKeyDown={e => {
+              if (e.key === 'Enter') saveTaskName();
+              if (e.key === 'Escape') cancelTaskNameEdit();
             }}
             autoFocus
             aria-label="Edit task name"
@@ -83,7 +83,7 @@ const TaskModalHeader = ({ task }: Props) => {
         </span>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default TaskModalHeader;
