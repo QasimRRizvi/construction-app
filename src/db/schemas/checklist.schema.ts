@@ -1,10 +1,10 @@
-import { ChecklistStatus } from "../../constants";
+import { ChecklistStatus } from '../../constants';
 
 export type Checklist = {
-  id: string
-  taskId: string
-  label: string
-  status: ChecklistStatus
+  id: string;
+  taskId: string;
+  label: string;
+  status: ChecklistStatus;
 };
 
 const checklistSchema = {

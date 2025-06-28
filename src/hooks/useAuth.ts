@@ -6,20 +6,18 @@ type AuthState = {
   user: User | null;
   login: (user: User) => void;
   logout: () => void;
-}
+};
 
-type AuthPersist = PersistOptions<AuthState>
+type AuthPersist = PersistOptions<AuthState>;
 
-const authStore: (set: (partial: Partial<AuthState>) => void) => AuthState = (set) => ({
+const authStore: (set: (partial: Partial<AuthState>) => void) => AuthState = set => ({
   user: null,
-  login: (user) => set({ user }),
-  logout: () => set({ user: null })
-})
+  login: user => set({ user }),
+  logout: () => set({ user: null }),
+});
 
 const persistConfig: AuthPersist = {
   name: 'construction-user',
-}
+};
 
-export const useAuth = create<AuthState>()(
-  persist(authStore, persistConfig)
-)
+export const useAuth = create<AuthState>()(persist(authStore, persistConfig));

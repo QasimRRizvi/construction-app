@@ -2,41 +2,40 @@ import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
-import type { Task } from '../db/schemas/task.schema'
-import TaskModal from '../components/TaskModal'
+import type { Task } from '../db/schemas/task.schema';
+import TaskModal from '../components/TaskModal';
 import { getDB } from '../db';
 import { useAuth } from '../hooks/useAuth';
 import { useTask } from '../hooks/useTask';
 import { DEFAULT_CHECKLIST } from '../constants';
 
 const PlanView = () => {
-  const containerRef = useRef<HTMLDivElement | null>(null)
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const { user } = useAuth();
   const { activeTask, tasks, setActiveTask, setTasks } = useTask();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadTasks = async () => {
-      const db = await getDB()
-      const results = await db.tasks
-        .find({ selector: { userId: user?.id } })
-        .exec()
-      const data = results.map((doc) => doc.toJSON())
-      setTasks(data)
-    }
+      const db = await getDB();
+      const results = await db.tasks.find({ selector: { userId: user?.id } }).exec();
+      const data = results.map(doc => doc.toJSON());
+      setTasks(data);
+    };
 
-    user?.id ? loadTasks() : navigate('/')
-  }, [user, navigate])
+    if (user?.id) loadTasks();
+    else navigate('/');
+  }, [user, navigate, setTasks]);
 
   const handleClick = async (e: React.MouseEvent) => {
-    if (!user) return
+    if (!user) return;
 
-    const rect = containerRef.current?.getBoundingClientRect()
+    const rect = containerRef.current?.getBoundingClientRect();
 
-    if (!rect) return
+    if (!rect) return;
 
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
     const newTask: Task = {
       id: uuidv4(),
@@ -45,23 +44,23 @@ const PlanView = () => {
       y,
       userId: user.id,
       createdAt: new Date().toISOString(),
-    }
+    };
 
-    const db = await getDB()
-    await db.tasks.insert(newTask)
+    const db = await getDB();
+    await db.tasks.insert(newTask);
 
     // Add default checklist
     const checklistInserts = DEFAULT_CHECKLIST.map(item => ({
       id: uuidv4(),
       taskId: newTask.id,
       label: item.label,
-      status: item.status
+      status: item.status,
     }));
 
     await db.checklists.bulkInsert(checklistInserts);
 
     setTasks([...tasks, newTask]);
-  }
+  };
 
   return (
     <div className="px-4 py-6 text-white">
@@ -73,7 +72,7 @@ const PlanView = () => {
         <img src="/floor_plan.webp" className="w-full" alt="Construction Floor Plan" />
 
         {/* Render task markers */}
-        {tasks.map((task) => (
+        {tasks.map(task => (
           <div
             key={task.id}
             className="absolute group"
@@ -82,9 +81,9 @@ const PlanView = () => {
               top: `${task.y}px`,
               transform: 'translate(-50%, -100%)',
             }}
-            onClick={(e) => {
-              e.stopPropagation() // prevent new marker placement
-              setActiveTask(task)
+            onClick={e => {
+              e.stopPropagation(); // prevent new marker placement
+              setActiveTask(task);
             }}
           >
             {/* Pin Container */}
@@ -100,15 +99,9 @@ const PlanView = () => {
           </div>
         ))}
       </div>
-      {activeTask && (
-        <TaskModal
-          task={activeTask}
-          onClose={() => setActiveTask(null)}
-        />
-      )}
+      {activeTask && <TaskModal task={activeTask} onClose={() => setActiveTask(null)} />}
     </div>
-  )
-}
-
+  );
+};
 
 export default PlanView;

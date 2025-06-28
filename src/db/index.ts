@@ -1,42 +1,37 @@
-import {
-  addRxPlugin,
-  createRxDatabase,
-  type RxDatabase,
-  type RxCollection
-} from 'rxdb'
+import { addRxPlugin, createRxDatabase, type RxDatabase, type RxCollection } from 'rxdb';
 
-import { getRxStorageDexie } from 'rxdb/plugins/storage-dexie'
+import { getRxStorageDexie } from 'rxdb/plugins/storage-dexie';
 import { RxDBUpdatePlugin } from 'rxdb/plugins/update';
 
-import userSchema, { type User } from './schemas/user.schema'
-import taskSchema, { type Task } from './schemas/task.schema'
-import checklistSchema, { type Checklist } from './schemas/checklist.schema'
+import userSchema, { type User } from './schemas/user.schema';
+import taskSchema, { type Task } from './schemas/task.schema';
+import checklistSchema, { type Checklist } from './schemas/checklist.schema';
 
-addRxPlugin(RxDBUpdatePlugin)
+addRxPlugin(RxDBUpdatePlugin);
 
 export interface AppDatabaseCollections {
-  users: RxCollection<User>
-  tasks: RxCollection<Task>
-  checklists: RxCollection<Checklist>
+  users: RxCollection<User>;
+  tasks: RxCollection<Task>;
+  checklists: RxCollection<Checklist>;
 }
 
-export type AppDatabase = RxDatabase<AppDatabaseCollections>
+export type AppDatabase = RxDatabase<AppDatabaseCollections>;
 
-let db: AppDatabase | null = null
+let db: AppDatabase | null = null;
 
 export async function getDB(): Promise<AppDatabase> {
-  if (db) return db
+  if (db) return db;
 
   db = await createRxDatabase<AppDatabaseCollections>({
     name: 'construction',
     storage: getRxStorageDexie(),
-  })
+  });
 
   await db.addCollections({
     users: { schema: userSchema },
     tasks: { schema: taskSchema },
-    checklists: { schema: checklistSchema }
-  })
+    checklists: { schema: checklistSchema },
+  });
 
-  return db
+  return db;
 }

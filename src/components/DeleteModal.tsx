@@ -1,10 +1,10 @@
-import { TriangleAlert } from "lucide-react"
+import { TriangleAlert } from 'lucide-react';
 
-import Button from "./ui/Button"
-import { getDB } from "../db"
-import { useTask } from "../hooks/useTask"
-import { useChecklist } from "../hooks/useChecklist"
-import { useDelete } from "../hooks/useDelete"
+import Button from './ui/Button';
+import { getDB } from '../db';
+import { useTask } from '../hooks/useTask';
+import { useChecklist } from '../hooks/useChecklist';
+import { useDelete } from '../hooks/useDelete';
 
 const DeleteModal = () => {
   const { activeTask: task, tasks, setActiveTask, setTasks } = useTask();
@@ -27,12 +27,12 @@ const DeleteModal = () => {
     setItems([]);
     // close Task Modal
     setActiveDropdown(null);
-  }
+  };
 
   const handleDelete = () => {
     deleteTask();
     toggleOpen();
-  }
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
@@ -61,13 +61,29 @@ const DeleteModal = () => {
 
           {/* Modal Actions */}
           <div className="flex justify-center gap-4 mt-6 pt-4">
-            <Button className="rounded-xl" variant="outlined" color="secondary" size="sm" onClick={toggleOpen}>No, Keep it.</Button>
-            <Button className="rounded-xl" variant="contained" color="error" size="sm" onClick={handleDelete}>Yes, Delete</Button>
+            <Button
+              className="rounded-xl"
+              variant="outlined"
+              color="secondary"
+              size="sm"
+              onClick={toggleOpen}
+            >
+              No, Keep it.
+            </Button>
+            <Button
+              className="rounded-xl"
+              variant="contained"
+              color="error"
+              size="sm"
+              onClick={handleDelete}
+            >
+              Yes, Delete
+            </Button>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default DeleteModal;

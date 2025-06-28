@@ -6,7 +6,7 @@ const Plan = () => {
     <AuthenticatedLayout>
       <PlanView />
     </AuthenticatedLayout>
-  )
-}
+  );
+};
 
 export default Plan;

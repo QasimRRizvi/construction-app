@@ -12,4 +12,4 @@ export const DEFAULT_CHECKLIST = [
   { label: 'Work Started', status: ChecklistStatus.NotStarted },
   { label: 'Inspection Scheduled', status: ChecklistStatus.NotStarted },
   { label: 'Final Check', status: ChecklistStatus.NotStarted },
-]
+];

@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import type { Task } from "../db/schemas/task.schema";
+import { create } from 'zustand';
+import type { Task } from '../db/schemas/task.schema';
 
 interface TaskState {
   activeTask: Task | null;
@@ -11,12 +11,12 @@ interface TaskState {
   toggleIsEditingTaskName: () => void;
 }
 
-export const useTask = create<TaskState>((set) => ({
+export const useTask = create<TaskState>(set => ({
   activeTask: null,
   tasks: [],
   isEditingTaskName: false,
 
-  setActiveTask: (task) => set({ activeTask: task }),
-  setTasks: (tasks) => set({ tasks }),
-  toggleIsEditingTaskName: () => set((state) => ({ isEditingTaskName: !state.isEditingTaskName }))
+  setActiveTask: task => set({ activeTask: task }),
+  setTasks: tasks => set({ tasks: [...tasks] }),
+  toggleIsEditingTaskName: () => set(state => ({ isEditingTaskName: !state.isEditingTaskName })),
 }));
