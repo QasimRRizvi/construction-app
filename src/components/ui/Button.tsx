@@ -50,9 +50,9 @@ const getColorStyles = (variant: Variant, color: Color) => {
   }
 
   // custom hex color fallback
-  const baseText = `text-[${color}]`;
-  const baseBg = `bg-[${color}]`;
-  const baseBorder = `border-[${color}]`;
+  const baseText = `text-${color}`;
+  const baseBg = `bg-${color}`;
+  const baseBorder = `border-${color}`;
 
   return {
     contained: `${baseBg} text-white hover:opacity-90 focus:ring-transparent`,
