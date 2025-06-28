@@ -33,7 +33,7 @@ const AuthenticatedLayout = ({ children }: Props) => {
             <button
               key={path}
               onClick={() => navigate(path)}
-              className={`text-left px-3 py-2 rounded-md transition backdrop-blur-sm shadow-xl ${isActive(path)
+              className={`text-left px-3 py-2 font-bold rounded-md transition backdrop-blur-sm shadow-xl ${isActive(path)
                 ? "bg-slate-500/50 text-white font-semibold"
                 : "text-gray-300 bg-white/10 border border-white/20 "
                 }`}
