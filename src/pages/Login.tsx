@@ -56,7 +56,6 @@ const Login = () => {
         />
         <Button
           variant='contained'
-          color='blue-500'
           disabled={!name}
           onClick={handleLogin}
           className="w-full !rounded-lg"
