@@ -83,3 +83,32 @@ cd construction-app
 npm install
 npm run dev
 ```
+
+---
+
+## 🧹 Code Quality
+
+### ESLint & Prettier
+
+This project uses **ESLint** and **Prettier** to ensure consistent code quality and formatting.
+
+- ESLint helps catch bugs and enforce best practices.
+- Prettier automatically formats code for consistent style.
+
+### Husky + lint-staged (Pre-commit Hook)
+
+- Before every commit, ESLint and Prettier run automatically on staged files using **Husky** and **lint-staged**.
+- This ensures all committed code is clean and formatted.
+
+### How to run manually
+
+```bash
+# Run ESLint
+npm run lint
+
+# Format code
+npm run format
+
+```
+
+You don’t need to run these manually before every commit – they are auto-run via pre-commit hook.
