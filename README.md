@@ -38,7 +38,7 @@ src/
 │   ├── index.ts         # DB initialization
 │   └── schemas/         # task.schema.ts, checklist.schema.ts, user.schema.ts
 ├── hooks/               # Zustand-powered hooks (auth, task, checklist)
-├── pages/               # Page-level views (Plan, Taskboard)
+├── pages/               # Page-level views (Login, Plan, Taskboard)
 ├── router/              # React Router configuration
 ├── utils/               # Helper functions like getTaskStatus
 └── App.tsx              # App root component
@@ -67,7 +67,7 @@ src/
 
 ## 🧹 Improvements for Future
 
-- 🧪 Add unit tests for status calculation & hooks
+- 🧪 Add unit tests
 - 🎨 Animate modals and drawer with Framer Motion
 - 🔒 Improve accessibility and focus management
 - 📲 Add PWA support for installability
