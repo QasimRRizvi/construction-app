@@ -99,12 +99,12 @@ const TaskModal = ({ task, onClose }: Props) => {
             </Button>
             <Button
               variant="contained"
-              className="rounded-xl"
+              className="rounded-xl !px-6"
               size="sm"
               onClick={handleSave}
               disabled={!!editingItemId || isEditingTaskName}
             >
-              Save Changes
+              Save
             </Button>
             <Button
               variant="contained"
