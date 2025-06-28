@@ -70,7 +70,7 @@ export default function TaskManagement() {
   }
 
   const TaskCard = ({ task, isBoard = false }: { task: Task; isBoard?: boolean }) => (
-    <div className={`${isBoard ? "mb-3" : "mb-2"} border border-gray-300 rounded-lg hover:shadow-md transition-shadow duration-200`}>
+    <div className={`${isBoard ? "mb-3" : "mb-2"} border border-gray-300 rounded-lg hover:shadow-md transition-shadow duration-200 bg-white`}>
       <div className={`${isBoard ? "p-4" : "p-3"}`}>
         <div className="flex items-center justify-between">
           <div className="flex-1 min-w-0">
@@ -113,7 +113,7 @@ export default function TaskManagement() {
     const groupedTasks = groupTasksByStatus()
 
     return (
-      <div className="space-y-6">
+      <div className="space-y-6 ">
         {statusOrder.map((status) => (
           <div key={status} className="space-y-2">
             <div className="flex items-center space-x-2">
@@ -126,7 +126,7 @@ export default function TaskManagement() {
               {groupedTasks[status].length > 0 ? (
                 groupedTasks[status].map((task) => <TaskCard key={task.id} task={task} />)
               ) : (
-                <div className="text-center py-8 text-gray-500 border border-gray-300 rounded-lg">
+                <div className="text-center py-8 text-gray-500 border border-gray-300 rounded-lg bg-white">
                   <p className="text-sm">No tasks in this status</p>
                 </div>
               )}
@@ -141,11 +141,11 @@ export default function TaskManagement() {
     const groupedTasks = groupTasksByStatus()
 
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 overflow-x-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 overflow-x-auto overflow-y-hidden h-full">
         {statusOrder.map((status) => {
           const config = statusConfig[status]
           return (
-            <div key={status} className="min-w-[280px] bg-gray-50 rounded-lg p-4">
+            <div key={status} className="min-w-[280px] border border-gray-300 rounded-lg p-4">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-2">
                   <div className={`w-3 h-3 rounded-full ${config.color}`} />
@@ -173,44 +173,46 @@ export default function TaskManagement() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto p-4 md:p-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 space-y-4 sm:space-y-0">
-        <h1 className="text-2xl font-bold text-gray-900">Tasks</h1>
-        <div className="flex items-center space-x-3">
-          <div className="flex items-center bg-gray-200 rounded-lg p-1">
-            <Button
-              variant={viewMode === 'list' ? 'contained' : 'text'}
-              color={viewMode === 'list' ? '#000' : 'secondary'}
-              size="sm"
-              className="h-8 px-3 hover:border-none"
-              onClick={() => setViewMode("list")}
-            >
-              <List className="w-4 h-4 mr-1" />
-              List
-            </Button>
-            <Button
-              variant={viewMode === 'board' ? 'contained' : 'text'}
-              color={viewMode === 'board' ? '#000' : 'secondary'}
-              size="sm"
-              className="h-8 px-3 hover:border-none"
-              onClick={() => setViewMode("board")}
-            >
-              <LayoutGrid className="w-4 h-4 mr-1" />
-              Board
-            </Button>
+    <div className="min-h-screen bg-gradient-to-br from-slate-800 to-slate-950 px-4 py-6 text-white">
+      <h1 className="text-3xl font-bold text-center ">🗂️ Task Board</h1>
+      <div className="max-w-7xl mx-auto ">
+        {/* Header */}
+        <div className="flex flex-col items-end sm:flex-row sm:items-center sm:justify-end mb-6 space-y-4 sm:space-y-0">
+          <div className="flex items-center space-x-3">
+            <div className="flex items-center bg-gray-200 rounded-lg p-1">
+              <Button
+                variant={viewMode === 'list' ? 'contained' : 'text'}
+                color={viewMode === 'list' ? '#000' : 'secondary'}
+                size="sm"
+                className="h-8 px-3 hover:border-none"
+                onClick={() => setViewMode("list")}
+              >
+                <List className="w-4 h-4 mr-1" />
+                List
+              </Button>
+              <Button
+                variant={viewMode === 'board' ? 'contained' : 'text'}
+                color={viewMode === 'board' ? '#000' : 'secondary'}
+                size="sm"
+                className="h-8 px-3 hover:border-none"
+                onClick={() => setViewMode("board")}
+              >
+                <LayoutGrid className="w-4 h-4 mr-1" />
+                Board
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Content */}
-      <div className="transition-all duration-300 ease-in-out">
-        {viewMode === "list" ? <ListView /> : <BoardView />}
-      </div>
+        {/* Content */}
+        <div className="transition-all duration-300 ease-in-out overflow-auto h-[calc(100vh-150px)] bg-gray-50 rounded-lg p-4 border-4 border-gray-500">
+          {viewMode === "list" ? <ListView /> : <BoardView />}
+        </div>
 
-      {activeTask && (
-        <TaskModal task={activeTask} onClose={() => setActiveTask(null)} />
-      )}
+        {activeTask && (
+          <TaskModal task={activeTask} onClose={() => setActiveTask(null)} />
+        )}
+      </div>
     </div>
   )
 }
