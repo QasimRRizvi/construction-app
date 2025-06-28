@@ -25,6 +25,7 @@ const TaskModal = ({ task, onClose }: Props) => {
     getUpdatedItems,
     setActiveDropdown,
     setChecklistForTask,
+    resetDeletedItemId,
   } = useChecklist()
 
   /* Save in DB Handlres */
@@ -46,15 +47,18 @@ const TaskModal = ({ task, onClose }: Props) => {
     // Filter only updated items
     const updatedItems = getUpdatedItems();
 
-    if (updatedItems.length === 0) return;
-
-    await Promise.all(
-      updatedItems.map(item => db.checklists.upsert(item))
-    );
-
-    db.checklists.find({ selector: { id: { $in: deletedItemIds } } }).remove();
+    if (updatedItems.length) {
+      await Promise.all(
+        updatedItems.map(item => db.checklists.upsert(item))
+      );
+    }
+    if (deletedItemIds.length) {
+      db.checklists.find({ selector: { id: { $in: deletedItemIds } } }).remove();
+      resetDeletedItemId();
+    }
     // to real-time update grouped items in task board
     setChecklistForTask(task.id, items);
+
   };
 
   const handleSave = () => {

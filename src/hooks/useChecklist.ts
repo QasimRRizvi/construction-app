@@ -16,6 +16,7 @@ interface ChecklistState {
   toggleOpen: () => void;
   setItems: (items: ChecklistItem[]) => void;
   setDeletedItemId: (id: string) => void;
+  resetDeletedItemId: () => void;
   addItem: (taskId: string) => ChecklistItem;
   updateItemStatus: (id: string, status: ChecklistStatus) => void;
   setEditingItemId: (id: string | null) => void;
@@ -40,6 +41,7 @@ export const useChecklist = create<ChecklistState>((set, get) => ({
   toggleOpen: () => set((state) => ({ open: !state.open })),
   setItems: (items) => set({ items }),
   setDeletedItemId: (id) => set((state) => ({ deletedItemIds: [...state.deletedItemIds, id] })),
+  resetDeletedItemId: () => set({ deletedItemIds: [] }),
   setEditingItemId: (id) => set({ editingItemId: id }),
   addItem: (taskId) => {
     const newItem: ChecklistItem = {
