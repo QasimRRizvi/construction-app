@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 import { getDB } from '../db'
 import { useAuth } from '../hooks/useAuth'
+import Button from '../components/ui/Button'
 
 const Login = () => {
   const [name, setName] = useState('')
@@ -53,13 +54,15 @@ const Login = () => {
             if (e.key === "Enter") handleLogin()
           }}
         />
-
-        <button
+        <Button
+          variant='contained'
+          color='blue-500'
+          disabled={!name}
           onClick={handleLogin}
-          className="w-full bg-blue-500 hover:bg-blue-600 transition-colors text-white font-medium py-2 rounded-lg shadow-md"
+          className="w-full !rounded-lg"
         >
           Continue →
-        </button>
+        </Button>
 
         <p className="text-xs text-slate-400 mt-4 text-center">
           Offline-first task planner for your construction site.
