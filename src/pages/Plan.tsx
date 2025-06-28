@@ -1,5 +1,12 @@
+import AuthenticatedLayout from '../components/layouts/AuthenticatedLayout';
+import PlanView from '../components/PlanView';
+
 const Plan = () => {
-  return <div className="p-4">🗺️ Plan View</div>
+  return (
+    <AuthenticatedLayout>
+      <PlanView />
+    </AuthenticatedLayout>
+  )
 }
 
 export default Plan;

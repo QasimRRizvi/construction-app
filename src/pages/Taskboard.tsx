@@ -1,5 +1,12 @@
-const TaskBoard = () => {
-  return <div className="p-4">📋 Task Board</div>
+import AuthenticatedLayout from "../components/layouts/AuthenticatedLayout"
+import TaskboardView from "../components/TaskboardView"
+
+const Taskboard = () => {
+  return (
+    <AuthenticatedLayout>
+      <TaskboardView />
+    </AuthenticatedLayout>
+  )
 }
 
-export default TaskBoard;
+export default Taskboard
