@@ -72,7 +72,7 @@ export default function TaskManagement() {
     return (
       <Badge className={`${config.bgColor} border-0`}>
         <Circle className={`w-2 h-2 fill-current ${config.dotColor}`} />
-        <span className={`text-xs font-bold ml-2 ${config.color}`}>
+        <span className={`text-xs font-extrabold ml-2 ${config.color}`}>
           {config.label}
         </span>
       </Badge>
@@ -141,12 +141,12 @@ export default function TaskManagement() {
   )
 
   const BoardView = () => (
-    <div className="flex gap-1 overflow-x-auto px-1 overflow-y-hidden h-full">
+    <div className="flex gap-4 overflow-x-auto px-1 overflow-y-hidden h-full">
       {statusOrder.map((status) => {
         const config = statusConfig[status]
         return (
           <div key={status} className="w-80 shrink-0 border border-gray-300 rounded-lg p-4">
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-4 bg-gray-200 p-3 rounded-lg">
               <div className="flex items-center space-x-2">
                 <div className={`w-3 h-3 rounded-full ${config.color}`} />
                 <h3 className="font-medium text-gray-900">{status}</h3>
@@ -155,7 +155,7 @@ export default function TaskManagement() {
                 {groupedTasks[status].length}
               </Badge>
             </div>
-            <div className="space-y-3 max-h-[calc(100vh-260px)] overflow-y-auto">
+            <div className="space-y-3 max-h-[calc(100vh-280px)] overflow-y-auto">
               {groupedTasks[status].map((task) => (
                 <TaskCard key={task.id} task={task} status={status} isBoard />
               ))}
@@ -173,7 +173,7 @@ export default function TaskManagement() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-800 to-slate-950 px-4 py-6 text-white">
-      <h1 className="text-3xl font-bold text-center ">🗂️ Task Board</h1>
+      <h1 className="text-3xl font-bold text-center mb-2">🗂️ Task Board</h1>
       <div className="max-w-7xl mx-auto ">
         {/* Header */}
         <div className="flex flex-col items-end sm:flex-row sm:items-center sm:justify-end mb-6 space-y-4 sm:space-y-0">
@@ -181,7 +181,7 @@ export default function TaskManagement() {
             <div className="flex items-center bg-gray-200 rounded-lg p-1">
               <Button
                 variant={viewMode === 'list' ? 'contained' : 'text'}
-                color={viewMode === 'list' ? '#000' : 'secondary'}
+                color={viewMode === 'list' ? 'black' : 'secondary'}
                 size="sm"
                 className="h-8 px-3 hover:border-none"
                 onClick={() => setViewMode("list")}
@@ -191,7 +191,7 @@ export default function TaskManagement() {
               </Button>
               <Button
                 variant={viewMode === 'board' ? 'contained' : 'text'}
-                color={viewMode === 'board' ? '#000' : 'secondary'}
+                color={viewMode === 'board' ? 'black' : 'secondary'}
                 size="sm"
                 className="h-8 px-3 hover:border-none"
                 onClick={() => setViewMode("board")}
