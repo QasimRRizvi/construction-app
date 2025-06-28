@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Circle, Edit2 } from "lucide-react";
+import { Circle, Edit3 } from "lucide-react";
 
 import type { Task } from "../db/schemas/task.schema";
 import Button from "./ui/Button";
@@ -70,7 +70,7 @@ const TaskModalHeader = ({ task }: Props) => {
             className="!p-1 opacity-0 group-hover:opacity-100"
             aria-label="Edit task name"
           >
-            <Edit2 className="w-4 h-4" />
+            <Edit3 className="w-4 h-4" />
           </Button>
         </div>
       )}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import clsx from "clsx";
-import { ChevronDown, ChevronRight, Circle, Plus, Edit2, Trash2 } from "lucide-react";
+import { ChevronDown, ChevronRight, Circle, Plus, Edit3, Trash2 } from "lucide-react";
 
 import type { Checklist } from "../db/schemas/checklist.schema";
 import type { Task } from "../db/schemas/task.schema";
@@ -189,7 +189,7 @@ const ChecklistSection = ({ task }: Props) => {
                             className="!p-1"
                             aria-label={`Edit ${item.label}`}
                           >
-                            <Edit2 className="w-4 h-4" />
+                            <Edit3 className="w-4 h-4" />
                           </Button>
                           <Button
                             onClick={() => handleItemDelete(item.id)}
