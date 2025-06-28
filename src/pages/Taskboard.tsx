@@ -26,7 +26,7 @@ export default function TaskManagement() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { tasks, setTasks, activeTask, setActiveTask } = useTask();
-  const { getStatusesByTask, setChecklistForTask, getStatuses } = useChecklist();
+  const { getStatusesByTask, setChecklistForTask } = useChecklist();
 
   const [viewMode, setViewMode] = useState<"list" | "board">("list")
 
@@ -141,11 +141,11 @@ export default function TaskManagement() {
   )
 
   const BoardView = () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 overflow-x-auto overflow-y-hidden h-full">
+    <div className="flex gap-1 overflow-x-auto px-1 overflow-y-hidden h-full">
       {statusOrder.map((status) => {
         const config = statusConfig[status]
         return (
-          <div key={status} className="min-w-[280px] border border-gray-300 rounded-lg p-4">
+          <div key={status} className="w-80 shrink-0 border border-gray-300 rounded-lg p-4">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-2">
                 <div className={`w-3 h-3 rounded-full ${config.color}`} />
@@ -155,7 +155,7 @@ export default function TaskManagement() {
                 {groupedTasks[status].length}
               </Badge>
             </div>
-            <div className="space-y-3 max-h-[calc(100vh-200px)] overflow-y-auto">
+            <div className="space-y-3 max-h-[calc(100vh-260px)] overflow-y-auto">
               {groupedTasks[status].map((task) => (
                 <TaskCard key={task.id} task={task} status={status} isBoard />
               ))}
