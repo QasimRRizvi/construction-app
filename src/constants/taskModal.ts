@@ -17,7 +17,7 @@ export const statusConfig: Record<ChecklistStatus, {
     label: "In Progress",
     color: "text-yellow-600",
     dotColor: "text-yellow-500",
-    bgColor: "bg-yellow-100",
+    bgColor: "bg-orange-100",
   },
   [ChecklistStatus.Blocked]: {
     label: "Blocked",
