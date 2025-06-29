@@ -75,6 +75,27 @@ src/
 
 ---
 
+## 🛠 Requirements
+
+- **Node.js** v20 or higher _(Make sure you're using Node 20+ to avoid compatibility issues)_
+- **npm** v9+ (comes with Node 20+)
+- Recommended: Use [nvm](https://github.com/nvm-sh/nvm) to manage Node versions
+
+### 🔍 Check your version
+
+```bash
+node -v  # should be >= 20.0.0
+```
+
+---
+
+If you're not using Node 20+, install it via nvm:
+
+```bash
+nvm install 20
+nvm use 20
+```
+
 ## 🔧 Running the Project
 
 ```bash
