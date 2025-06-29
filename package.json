@@ -57,5 +57,8 @@
     "src/**/*.{css,scss,json,md}": [
       "prettier --write"
     ]
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
